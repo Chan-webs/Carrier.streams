@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Science Subject Selector</title>
+  <style>
+    body {
+      background-color: white;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+    h2, h3 {
+      color: #333;
+    }
+    label {
+      display: block;
+      margin: 6px 0;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    #careerSection {
+      margin-top: 30px;
+      display: none;
+    }
+    li {
+      margin-bottom: 12px;
+    }
+    .career-title {
+      font-weight: bold;
+    }
+    .career-desc {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Select at least 4 Science Subjects</h2>
+  <form id="subjectForm">
+    <label><input type="checkbox" name="subjects" value="Physics" /> Physics *</label>
+    <label><input type="checkbox" name="subjects" value="Chemistry" /> Chemistry *</label>
+    <label><input type="checkbox" name="subjects" value="Biology" /> Biology</label>
+    <label><input type="checkbox" name="subjects" value="Mathematics" /> Mathematics</label>
+    <label><input type="checkbox" name="subjects" value="Computer Science" /> Computer Science</label>
+    <label><input type="checkbox" name="subjects" value="Environmental Science" /> Environmental Science</label>
+    <button type="submit">Next</button>
+  </form>
+
+  <div id="careerSection">
+    <h3>Possible Careers</h3>
+    <ul id="careerList"></ul>
+  </div>
+
+  <script>
+    const subjectToCareers = {
+      Physics: ["Physicist", "Aerospace Engineer", "Data Scientist", "Astronomer", "Robotics Engineer"],
+      Chemistry: ["Pharmacist", "Chemical Engineer", "Forensic Scientist", "Toxicologist"],
+      Biology: ["Doctor", "Geneticist", "Biotechnologist", "Marine Biologist"],
+      Mathematics: ["Actuary", "Statistician", "Machine Learning Engineer", "Economist"],
+      "Computer Science": ["Software Developer", "Cybersecurity Expert", "Game Designer", "AI Engineer"],
+      "Environmental Science": ["Environmental Consultant", "Sustainability Analyst", "Conservationist"],
+    };
+
+    const careerDescriptions = {
+      Physicist: "Studies matter and energy to understand the universe's laws.",
+      "Aerospace Engineer": "Designs aircraft, spacecraft, satellites, and missiles.",
+      "Data Scientist": "Analyzes large data sets to help make business or research decisions.",
+      Astronomer: "Studies celestial bodies like stars, planets, and galaxies.",
+      "Robotics Engineer": "Builds and maintains robots and automation systems.",
+      Pharmacist: "Prepares and dispenses medications, advises on their safe use.",
+      "Chemical Engineer": "Applies chemistry to design processes for large-scale manufacturing.",
+      "Forensic Scientist": "Analyzes crime scene evidence for criminal investigations.",
+      Toxicologist: "Studies effects of chemicals on humans, animals, and the environment.",
+      Doctor: "Diagnoses and treats illnesses to improve patients’ health.",
+      Geneticist: "Researches genes and genetic variation in living organisms.",
+      Biotechnologist: "Uses biology and tech to develop useful products.",
+      "Marine Biologist": "Studies ocean organisms and their ecosystems.",
+      Actuary: "Uses statistics to calculate risk for insurance and finance.",
+      Statistician: "Applies mathematical techniques to analyze and interpret data.",
+      "Machine Learning Engineer": "Builds systems that can learn and improve from data.",
+      Economist: "Analyzes economic trends to guide policies and decisions.",
+      "Software Developer": "Designs and builds computer applications and systems.",
+      "Cybersecurity Expert": "Protects networks and systems from digital attacks.",
+      "Game Designer": "Creates the concept, story, and mechanics of games.",
+      "AI Engineer": "Builds artificial intelligence systems and tools.",
+      "Environmental Consultant": "Advises on environmental best practices and policies.",
+      "Sustainability Analyst": "Helps businesses improve environmental and social impact.",
+      Conservationist: "Works to protect and restore natural habitats.",
+    };
+
+    document.getElementById("subjectForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const selected = Array.from(document.querySelectorAll('input[name="subjects"]:checked')).map(
+        (el) => el.value
+      );
+      const hasPhysics = selected.includes("Physics");
+      const hasChemistry = selected.includes("Chemistry");
+
+      if (!hasPhysics || !hasChemistry) {
+        alert("Physics and Chemistry are required.");
+        return;
+      }
+
+      if (selected.length < 4) {
+        alert("Please select at least 4 subjects.");
+        return;
+      }
+
+      const careerSet = new Set();
+      selected.forEach((subject) => {
+        if (subjectToCareers[subject]) {
+          subjectToCareers[subject].forEach((career) => careerSet.add(career));
+        }
+      });
+
+      const careerList = document.getElementById("careerList");
+      careerList.innerHTML = "";
+      [...careerSet]
+        .sort()
+        .forEach((career) => {
+          const li = document.createElement("li");
+          const title = document.createElement("div");
+          const desc = document.createElement("div");
+
+          title.textContent = career;
+          title.className = "career-title";
+          desc.textContent = careerDescriptions[career] || "Description coming soon.";
+          desc.className = "career-desc";
+
+          li.appendChild(title);
+          li.appendChild(desc);
+          careerList.appendChild(li);
+        });
+
+      document.getElementById("careerSection").style.display = "block";
+    });
+  </script>
+
+</body>
+</html>

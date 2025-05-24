@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cr_graving carrer help</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      padding: 20px;
+      max-width: 400px;
+      margin: 40px auto;
+      border: 2px solid #4a90e2;
+      border-radius: 10px;
+      text-align: center;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      color: #34495e;
+    }
+    label {
+      display: block;
+      font-size: 1.1em;
+      margin: 15px 0 5px;
+      cursor: pointer;
+      user-select: none;
+    }
+    input[type="checkbox"] {
+      transform: scale(1.3);
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    button {
+      margin-top: 25px;
+      padding: 10px 25px;
+      font-size: 1.2em;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #357abd;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cr_graving carrer help</h1>
+  <p>Hello, bro/sis, wanna see what u can be?</p>
+
+  <form id="streamForm">
+    <label>
+      <input type="checkbox" id="science" name="stream" value="Science" />
+      Science
+    </label>
+    <label>
+      <input type="checkbox" id="arts" name="stream" value="Arts" />
+      Arts
+    </label>
+    <label>
+      <input type="checkbox" id="commerce" name="stream" value="Commerce" />
+      Commerce
+    </label>
+    <button type="button" onclick="showSelection()">Next</button>
+  </form>
+
+  <script>
+    function showSelection() {
+  const science = document.getElementById('science').checked;
+  const arts = document.getElementById('arts').checked;
+  const commerce = document.getElementById('commerce').checked;
+
+  if (!science && !arts && !commerce) {
+    alert('Please select at least one stream!');
+    return;
+  }
+
+  // Redirect based on selection
+  if (science && !arts && !commerce) {
+    window.location.href = 'science.html';
+  } else if (arts && !science && !commerce) {
+    window.location.href = 'arts.html';
+  } else if (commerce && !science && !arts) {
+    window.location.href = 'commerce.html';
+  } else {
+    window.location.href = 'multiple.html'; // if more than one is selected
+  }
+}
+  </script>
+</body>
+</html>

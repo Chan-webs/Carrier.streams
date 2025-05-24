@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Arts Subject Selector</title>
+  <style>
+    body {
+      background-color: white;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+    h2, h3 {
+      color: #333;
+    }
+    label {
+      display: block;
+      margin: 6px 0;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    #careerSection {
+      margin-top: 30px;
+      display: none;
+    }
+    li {
+      margin-bottom: 12px;
+    }
+    .career-title {
+      font-weight: bold;
+    }
+    .career-desc {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Select at least 4 Arts Subjects</h2>
+  <form id="subjectForm">
+    <label><input type="checkbox" name="subjects" value="History"> History *</label>
+    <label><input type="checkbox" name="subjects" value="Political Science"> Political Science *</label>
+    <label><input type="checkbox" name="subjects" value="Psychology"> Psychology</label>
+    <label><input type="checkbox" name="subjects" value="Sociology"> Sociology</label>
+    <label><input type="checkbox" name="subjects" value="Philosophy"> Philosophy</label>
+    <label><input type="checkbox" name="subjects" value="Economics"> Economics</label>
+    <label><input type="checkbox" name="subjects" value="Geography"> Geography</label>
+    <label><input type="checkbox" name="subjects" value="Literature"> Literature</label>
+    <button type="submit">Next</button>
+  </form>
+
+  <div id="careerSection">
+    <h3>Possible Careers</h3>
+    <ul id="careerList"></ul>
+  </div>
+
+  <script>
+    const subjectToCareers = {
+      "History": ["Historian", "Archaeologist", "Museum Curator"],
+      "Political Science": ["Civil Servant", "Diplomat", "Policy Analyst"],
+      "Psychology": ["Psychologist", "Counselor", "Social Worker"],
+      "Sociology": ["Social Researcher", "NGO Worker", "Human Rights Advocate"],
+      "Philosophy": ["Professor", "Ethicist", "Journalist"],
+      "Economics": ["Economist", "Financial Analyst", "Development Officer"],
+      "Geography": ["Urban Planner", "Cartographer", "Environmental Consultant"],
+      "Literature": ["Writer", "Editor", "Creative Director"]
+    };
+
+    const careerDescriptions = {
+      "Historian": "Researches and writes about the past using sources and evidence.",
+      "Archaeologist": "Excavates and studies ancient sites to learn about human history.",
+      "Museum Curator": "Manages and displays historical and cultural artifacts.",
+      "Civil Servant": "Works in government to implement policies and serve the public.",
+      "Diplomat": "Represents the country in foreign relations and negotiations.",
+      "Policy Analyst": "Studies and recommends changes to public policy.",
+      "Psychologist": "Helps people manage mental health and emotional issues.",
+      "Counselor": "Guides individuals through personal, academic, or career challenges.",
+      "Social Worker": "Supports vulnerable individuals and helps solve social issues.",
+      "Social Researcher": "Analyzes social behavior, trends, and public issues.",
+      "NGO Worker": "Works on humanitarian and development projects.",
+      "Human Rights Advocate": "Promotes and protects civil and human rights.",
+      "Professor": "Teaches and conducts research in academic institutions.",
+      "Ethicist": "Advises on moral principles in various professional fields.",
+      "Journalist": "Reports and writes on current events, politics, and society.",
+      "Economist": "Analyzes financial and economic trends to influence decisions.",
+      "Financial Analyst": "Assesses financial data to help investment decisions.",
+      "Development Officer": "Manages projects and fundraising for social change.",
+      "Urban Planner": "Designs and improves city layouts and infrastructure.",
+      "Cartographer": "Creates and updates maps using data and technology.",
+      "Environmental Consultant": "Advises on environmental issues and compliance.",
+      "Writer": "Creates written content including books, articles, or scripts.",
+      "Editor": "Polishes and refines written material for publication.",
+      "Creative Director": "Leads the vision for media, ads, or publications."
+    };
+
+    document.getElementById('subjectForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const selected = Array.from(document.querySelectorAll('input[name="subjects"]:checked')).map(el => el.value);
+      const hasHistory = selected.includes('History');
+      const hasPolSci = selected.includes('Political Science');
+
+      if (!hasHistory || !hasPolSci) {
+        alert('History and Political Science are required.');
+        return;
+      }
+
+      if (selected.length < 4) {
+        alert('Please select at least 4 subjects.');
+        return;
+      }
+
+      const careerSet = new Set();
+      selected.forEach(subject => {
+        if (subjectToCareers[subject]) {
+          subjectToCareers[subject].forEach(career => careerSet.add(career));
+        }
+      });
+
+      const careerList = document.getElementById('careerList');
+      careerList.innerHTML = '';
+      [...careerSet].sort().forEach(career => {
+        const li = document.createElement('li');
+        const title = document.createElement('div');
+        const desc = document.createElement('div');
+
+        title.textContent = career;
+        title.className = 'career-title';
+        desc.textContent = careerDescriptions[career] || "Description coming soon.";
+        desc.className = 'career-desc';
+
+        li.appendChild(title);
+        li.appendChild(desc);
+        careerList.appendChild(li);
+      });
+
+      document.getElementById('careerSection').style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>

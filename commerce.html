@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Commerce Subject Selector</title>
+  <style>
+    body {
+      background-color: white;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+    h2, h3 {
+      color: #333;
+    }
+    label {
+      display: block;
+      margin: 6px 0;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    #careerSection {
+      margin-top: 30px;
+      display: none;
+    }
+    li {
+      margin-bottom: 12px;
+    }
+    .career-title {
+      font-weight: bold;
+    }
+    .career-desc {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Select at least 4 Commerce Subjects</h2>
+  <form id="subjectForm">
+    <label><input type="checkbox" name="subjects" value="Accountancy" /> Accountancy *</label>
+    <label><input type="checkbox" name="subjects" value="Business Studies" /> Business Studies *</label>
+    <label><input type="checkbox" name="subjects" value="Economics" /> Economics</label>
+    <label><input type="checkbox" name="subjects" value="Mathematics" /> Mathematics</label>
+    <label><input type="checkbox" name="subjects" value="Informatics Practices" /> Informatics Practices</label>
+    <label><input type="checkbox" name="subjects" value="Entrepreneurship" /> Entrepreneurship</label>
+    <button type="submit">Next</button>
+  </form>
+
+  <div id="careerSection">
+    <h3>Possible Careers</h3>
+    <ul id="careerList"></ul>
+  </div>
+
+  <script>
+    const subjectToCareers = {
+      Accountancy: ["Chartered Accountant", "Auditor", "Tax Consultant", "Financial Analyst"],
+      "Business Studies": ["Business Manager", "Marketing Manager", "HR Manager", "Sales Manager"],
+      Economics: ["Economist", "Market Analyst", "Investment Banker", "Policy Analyst"],
+      Mathematics: ["Actuary", "Data Analyst", "Statistician", "Financial Planner"],
+      "Informatics Practices": ["IT Consultant", "Software Developer", "Database Administrator", "Web Developer"],
+      Entrepreneurship: ["Startup Founder", "Business Consultant", "Venture Capitalist", "Product Manager"]
+    };
+
+    const careerDescriptions = {
+      "Chartered Accountant": "Expert in accounting, auditing, and taxation.",
+      Auditor: "Examines financial records for accuracy and compliance.",
+      "Tax Consultant": "Provides advice on tax planning and regulations.",
+      "Financial Analyst": "Analyzes financial data to guide investment decisions.",
+      "Business Manager": "Oversees daily operations of businesses and teams.",
+      "Marketing Manager": "Plans and executes marketing strategies to boost sales.",
+      "HR Manager": "Manages recruitment, employee relations, and benefits.",
+      "Sales Manager": "Leads sales teams to achieve revenue goals.",
+      Economist: "Studies economic trends and advises on financial policies.",
+      "Market Analyst": "Researches market conditions to support business decisions.",
+      "Investment Banker": "Helps companies raise capital and manage investments.",
+      "Policy Analyst": "Evaluates policies and their economic impacts.",
+      Actuary: "Calculates financial risks using statistics and math.",
+      "Data Analyst": "Interprets complex data to support business goals.",
+      Statistician: "Applies statistical methods to solve problems.",
+      "Financial Planner": "Advises clients on managing their finances.",
+      "IT Consultant": "Provides technology solutions to improve businesses.",
+      "Software Developer": "Creates and maintains software applications.",
+      "Database Administrator": "Manages and secures organizational data systems.",
+      "Web Developer": "Designs and builds websites and web applications.",
+      "Startup Founder": "Creates and manages new business ventures.",
+      "Business Consultant": "Advises companies on improving performance.",
+      "Venture Capitalist": "Invests in startups with growth potential.",
+      "Product Manager": "Oversees development and marketing of products."
+    };
+
+    document.getElementById("subjectForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const selected = Array.from(document.querySelectorAll('input[name="subjects"]:checked')).map(el => el.value);
+      const hasAccountancy = selected.includes("Accountancy");
+      const hasBusinessStudies = selected.includes("Business Studies");
+
+      if (!hasAccountancy || !hasBusinessStudies) {
+        alert("Accountancy and Business Studies are required.");
+        return;
+      }
+
+      if (selected.length < 4) {
+        alert("Please select at least 4 subjects.");
+        return;
+      }
+
+      const careerSet = new Set();
+      selected.forEach(subject => {
+        if (subjectToCareers[subject]) {
+          subjectToCareers[subject].forEach(career => careerSet.add(career));
+        }
+      });
+
+      const careerList = document.getElementById("careerList");
+      careerList.innerHTML = "";
+      [...careerSet].sort().forEach(career => {
+        const li = document.createElement("li");
+        const title = document.createElement("div");
+        const desc = document.createElement("div");
+
+        title.textContent = career;
+        title.className = "career-title";
+        desc.textContent = careerDescriptions[career] || "Description coming soon.";
+        desc.className = "career-desc";
+
+        li.appendChild(title);
+        li.appendChild(desc);
+        careerList.appendChild(li);
+      });
+
+      document.getElementById("careerSection").style.display = "block";
+    });
+  </script>
+
+</body>
+</html>
