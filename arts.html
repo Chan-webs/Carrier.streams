@@ -1,145 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Arts Subject Selector</title>
-  <style>
-    body {
-      background-color: white;
-      font-family: Arial, sans-serif;
-      padding: 30px;
-    }
-    h2, h3 {
-      color: #333;
-    }
-    label {
-      display: block;
-      margin: 6px 0;
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      font-size: 16px;
-    }
-    #careerSection {
-      margin-top: 30px;
-      display: none;
-    }
-    li {
-      margin-bottom: 12px;
-    }
-    .career-title {
-      font-weight: bold;
-    }
-    .career-desc {
-      font-size: 14px;
-      color: #555;
-    }
-  </style>
+<style>
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #e0f7fa, #ffffff);
+  padding: 20px;
+  max-width: 550px;
+  margin: 40px auto;
+  border: 3px solid #00bcd4;
+  border-radius: 16px;
+  text-align: center;
+  color: #34495e;
+  animation: fadeInBody 1s ease-in;
+  box-shadow: 0 0 20px rgba(0, 188, 212, 0.2);
+}
+
+h1, h2 {
+  color: #00796b;
+  margin-bottom: 20px;
+  animation: slideInDown 1.2s ease-out;
+}
+
+p.hi, p {
+  font-size: 1.3em;
+  margin-bottom: 15px;
+  font-family: cursive;
+  color: #004d40;
+  animation: fadeIn 1.5s ease-in;
+}
+
+/* ========= FORM ELEMENTS ========= */
+form {
+  text-align: left;
+  max-width: 450px;
+  margin: 0 auto;
+  animation: fadeUp 1.1s ease-out;
+}
+
+label.option-label {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to right, #ffffff, #e0f7fa);
+  padding: 12px 16px;
+  border: 2px solid #00bcd4;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.4s ease;
+  font-size: 1.1em;
+  color: #00695c;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+label.option-label:hover {
+  background-color: #b2ebf2;
+  transform: scale(1.02);
+}
+
+input[type="checkbox"] {
+  transform: scale(1.4);
+  margin-right: 15px;
+  accent-color: #00bcd4;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+input[type="checkbox"]:hover {
+  transform: scale(1.6);
+}
+
+/* ========= BUTTONS ========= */
+button {
+  margin-top: 30px;
+  padding: 14px 30px;
+  font-size: 1.2em;
+  background: linear-gradient(to right, #00bcd4, #0097a7);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.4s ease, transform 0.3s ease;
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: bounceIn 1s ease;
+  box-shadow: 0 4px 10px rgba(0, 188, 212, 0.3);
+}
+
+button:hover {
+  background-color: #00838f;
+  transform: scale(1.05);
+}
+
+/* ========= CAREER SECTION ========= */
+#careerSection {
+  margin-top: 30px;
+  text-align: left;
+  display: none;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeUp 1s ease-out forwards;
+}
+
+#careerSection h3 {
+  color: #00796b;
+  margin-bottom: 20px;
+  text-align: center;
+  animation: fadeIn 2s ease-in;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 20px;
+  background: linear-gradient(to right, #ffffff, #e0f7fa);
+  border: 1px solid #00bcd4;
+  border-radius: 10px;
+  padding: 15px 20px;
+  transition: transform 0.3s ease;
+  animation: fadeUp 0.5s ease-in;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+li:hover {
+  transform: scale(1.03);
+}
+
+.career-title a {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #0097a7;
+  text-decoration: none;
+}
+
+.career-title a:hover {
+  text-decoration: underline;
+}
+
+.career-desc, .career-exams, .career-colleges {
+  font-size: 0.95em;
+  margin-top: 6px;
+  color: #555;
+}
+
+.career-exams strong,
+.career-colleges strong {
+  color: #00bcd4;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* ========= ANIMATIONS ========= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInBody {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
+</style>
 </head>
 <body>
+  <p class="hi">Hey there! Let's find your artsy career path.</p>
+  <h2>Pick at least 3 Arts subjects you like (English is a must!)</h2>
 
-  <h2>Select at least 4 Arts Subjects</h2>
   <form id="subjectForm">
-    <label><input type="checkbox" name="subjects" value="History"> History *</label>
-    <label><input type="checkbox" name="subjects" value="Political Science"> Political Science *</label>
-    <label><input type="checkbox" name="subjects" value="Psychology"> Psychology</label>
-    <label><input type="checkbox" name="subjects" value="Sociology"> Sociology</label>
-    <label><input type="checkbox" name="subjects" value="Philosophy"> Philosophy</label>
-    <label><input type="checkbox" name="subjects" value="Economics"> Economics</label>
-    <label><input type="checkbox" name="subjects" value="Geography"> Geography</label>
-    <label><input type="checkbox" name="subjects" value="Literature"> Literature</label>
-    <button type="submit">Next</button>
+    <label class="option-label">
+      <input type="checkbox" name="subjects" value="English" /> English *
+    </label>
+    <label class="option-label">
+      <input type="checkbox" name="subjects" value="History" /> History
+    </label>
+    <label class="option-label">
+      <input type="checkbox" name="subjects" value="Political Science" /> Political Science
+    </label>
+    <label class="option-label">
+      <input type="checkbox" name="subjects" value="Psychology" /> Psychology
+    </label>
+    <label class="option-label">
+      <input type="checkbox" name="subjects" value="Sociology" /> Sociology
+    </label>
+    <label class="option-label">
+      <input type="checkbox" name="subjects" value="Philosophy" /> Philosophy
+    </label>
+    <button type="submit">See My Career Options</button>
   </form>
 
   <div id="careerSection">
-    <h3>Possible Careers</h3>
+    <h3>Your possible career options:</h3>
     <ul id="careerList"></ul>
   </div>
 
   <script>
     const subjectToCareers = {
-      "History": ["Historian", "Archaeologist", "Museum Curator"],
-      "Political Science": ["Civil Servant", "Diplomat", "Policy Analyst"],
-      "Psychology": ["Psychologist", "Counselor", "Social Worker"],
-      "Sociology": ["Social Researcher", "NGO Worker", "Human Rights Advocate"],
-      "Philosophy": ["Professor", "Ethicist", "Journalist"],
-      "Economics": ["Economist", "Financial Analyst", "Development Officer"],
-      "Geography": ["Urban Planner", "Cartographer", "Environmental Consultant"],
-      "Literature": ["Writer", "Editor", "Creative Director"]
+      English: ["Journalist", "Content Writer", "Editor", "Public Relations Specialist"],
+      History: ["Historian", "Archaeologist", "Museum Curator"],
+      "Political Science": ["Diplomat", "Policy Analyst", "Civil Servant"],
+      Psychology: ["Psychologist", "Counselor", "HR Specialist"],
+      Sociology: ["Social Worker", "NGO Manager", "Demographer"],
+      Philosophy: ["Ethicist", "Professor", "Legal Analyst"],
     };
 
-    const careerDescriptions = {
-      "Historian": "Researches and writes about the past using sources and evidence.",
-      "Archaeologist": "Excavates and studies ancient sites to learn about human history.",
-      "Museum Curator": "Manages and displays historical and cultural artifacts.",
-      "Civil Servant": "Works in government to implement policies and serve the public.",
-      "Diplomat": "Represents the country in foreign relations and negotiations.",
-      "Policy Analyst": "Studies and recommends changes to public policy.",
-      "Psychologist": "Helps people manage mental health and emotional issues.",
-      "Counselor": "Guides individuals through personal, academic, or career challenges.",
-      "Social Worker": "Supports vulnerable individuals and helps solve social issues.",
-      "Social Researcher": "Analyzes social behavior, trends, and public issues.",
-      "NGO Worker": "Works on humanitarian and development projects.",
-      "Human Rights Advocate": "Promotes and protects civil and human rights.",
-      "Professor": "Teaches and conducts research in academic institutions.",
-      "Ethicist": "Advises on moral principles in various professional fields.",
-      "Journalist": "Reports and writes on current events, politics, and society.",
-      "Economist": "Analyzes financial and economic trends to influence decisions.",
-      "Financial Analyst": "Assesses financial data to help investment decisions.",
-      "Development Officer": "Manages projects and fundraising for social change.",
-      "Urban Planner": "Designs and improves city layouts and infrastructure.",
-      "Cartographer": "Creates and updates maps using data and technology.",
-      "Environmental Consultant": "Advises on environmental issues and compliance.",
-      "Writer": "Creates written content including books, articles, or scripts.",
-      "Editor": "Polishes and refines written material for publication.",
-      "Creative Director": "Leads the vision for media, ads, or publications."
+    const careerData = {
+      Journalist: {
+        desc: "Investigates and reports news stories through various media.",
+        exams: ["CUET", "DUET", "IPU CET"],
+        colleges: ["IIMC", "Xavier Institute of Communications", "Nagaland University"]
+      },
+      "Content Writer": {
+        desc: "Creates written material for websites, blogs, and companies.",
+        exams: ["No specific exam; focus on English or Mass Comm UG programs"],
+        colleges: ["St. Xavier’s College", "Delhi University", "Tetso College (Nagaland)"]
+      },
+      Editor: {
+        desc: "Reviews and improves written content for clarity and correctness.",
+        exams: ["CUET", "Jamia Entrance Test"],
+        colleges: ["Jamia Millia Islamia", "Symbiosis", "Nagaland University"]
+      },
+      "Public Relations Specialist": {
+        desc: "Manages public image and media communications for organizations.",
+        exams: ["XAT", "CAT", "CUET"],
+        colleges: ["Xavier Institute of Communications", "Amity", "ICFAI Nagaland"]
+      },
+      Historian: {
+        desc: "Researches and interprets past events and cultures.",
+        exams: ["CUET", "BHU UET"],
+        colleges: ["JNU", "Delhi University", "Nagaland University"]
+      },
+      Archaeologist: {
+        desc: "Studies human history through excavation and analysis of artifacts.",
+        exams: ["CUET", "UPSC for ASI roles"],
+        colleges: ["Deccan College", "MSU Baroda", "NEHU"]
+      },
+      "Museum Curator": {
+        desc: "Manages collections and exhibitions in museums.",
+        exams: ["CUET", "MA Entrance in Museology"],
+        colleges: ["National Museum Institute", "Visva-Bharati", "Nagaland University"]
+      },
+      Diplomat: {
+        desc: "Represents a country abroad and manages international relations.",
+        exams: ["UPSC (IFS)"],
+        colleges: ["JNU", "Delhi University", "Tetso College"]
+      },
+      "Policy Analyst": {
+        desc: "Evaluates government policies and their societal impacts.",
+        exams: ["UPSC", "TISSNET"],
+        colleges: ["TISS", "IIPA", "Nagaland University"]
+      },
+      "Civil Servant": {
+        desc: "Works in public sector roles to implement government functions.",
+        exams: ["UPSC", "NPSC (Nagaland)"],
+        colleges: ["Any recognized university (degree required)"]
+      },
+      Psychologist: {
+        desc: "Studies mental processes and helps people with psychological issues.",
+        exams: ["CUET", "DUET", "IGNOU"],
+        colleges: ["Christ University", "Jamia", "ICFAI Nagaland"]
+      },
+      Counselor: {
+        desc: "Provides support and guidance on personal, social, or psychological problems.",
+        exams: ["CUET", "MA Psychology"],
+        colleges: ["TISS", "Amity", "St. Joseph's College (Jakhama)"]
+      },
+      "HR Specialist": {
+        desc: "Manages recruitment, training, and employee relations.",
+        exams: ["CAT", "XAT", "MAT"],
+        colleges: ["XLRI", "IIMs", "Nagaland University (MBA)"]
+      },
+      "Social Worker": {
+        desc: "Supports individuals and communities in overcoming challenges.",
+        exams: ["TISSNET", "CUET", "MSW Entrance"],
+        colleges: ["TISS", "Madras School of Social Work", "Don Bosco College Kohima"]
+      },
+      "NGO Manager": {
+        desc: "Leads nonprofit organizations working for social causes.",
+        exams: ["TISSNET", "DU MSW"],
+        colleges: ["TISS", "IGNOU", "Nagaland University"]
+      },
+      Demographer: {
+        desc: "Studies population dynamics and trends.",
+        exams: ["CUET", "DUET"],
+        colleges: ["ISI Kolkata", "Delhi School of Economics", "NEHU"]
+      },
+      Ethicist: {
+        desc: "Analyzes moral issues and dilemmas in various fields.",
+        exams: ["CUET", "MA Philosophy Entrance"],
+        colleges: ["JNU", "University of Hyderabad", "St. Joseph’s College (Nagaland)"]
+      },
+      Professor: {
+        desc: "Teaches at universities and conducts academic research.",
+        exams: ["UGC-NET", "CSIR-NET"],
+        colleges: ["JNU", "TISS", "Nagaland University"]
+      },
+      "Legal Analyst": {
+        desc: "Studies legal issues and assists with case research or policy.",
+        exams: ["CLAT PG", "DU LLB", "AILET"],
+        colleges: ["NLU Delhi", "Symbiosis Law", "ICFAI Law School Nagaland"]
+      }
     };
 
-    document.getElementById('subjectForm').addEventListener('submit', function(event) {
+    document.getElementById("subjectForm").addEventListener("submit", function (event) {
       event.preventDefault();
 
-      const selected = Array.from(document.querySelectorAll('input[name="subjects"]:checked')).map(el => el.value);
-      const hasHistory = selected.includes('History');
-      const hasPolSci = selected.includes('Political Science');
+      const selected = Array.from(document.querySelectorAll('input[name="subjects"]:checked')).map(
+        (el) => el.value
+      );
 
-      if (!hasHistory || !hasPolSci) {
-        alert('History and Political Science are required.');
+      const hasEnglish = selected.includes("English");
+
+      if (!hasEnglish) {
+        alert("Oops! English is required.");
         return;
       }
 
-      if (selected.length < 4) {
-        alert('Please select at least 4 subjects.');
+      if (selected.length < 3) {
+        alert("Please pick at least 3 subjects to continue.");
         return;
       }
 
       const careerSet = new Set();
-      selected.forEach(subject => {
+      selected.forEach((subject) => {
         if (subjectToCareers[subject]) {
-          subjectToCareers[subject].forEach(career => careerSet.add(career));
+          subjectToCareers[subject].forEach((career) => careerSet.add(career));
         }
       });
 
-      const careerList = document.getElementById('careerList');
-      careerList.innerHTML = '';
-      [...careerSet].sort().forEach(career => {
-        const li = document.createElement('li');
-        const title = document.createElement('div');
-        const desc = document.createElement('div');
+      const careerList = document.getElementById("careerList");
+      careerList.innerHTML = "";
+      [...careerSet]
+        .sort()
+        .forEach((career) => {
+          const li = document.createElement("li");
 
-        title.textContent = career;
-        title.className = 'career-title';
-        desc.textContent = careerDescriptions[career] || "Description coming soon.";
-        desc.className = 'career-desc';
+          const title = document.createElement("div");
+          title.className = "career-title";
+          const link = document.createElement("a");
+          link.href = `https://www.google.com/search?q=${encodeURIComponent(career + " career")}`;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent = career;
+          title.appendChild(link);
 
-        li.appendChild(title);
-        li.appendChild(desc);
-        careerList.appendChild(li);
-      });
+          const desc = document.createElement("div");
+          desc.className = "career-desc";
+          desc.textContent = careerData[career]?.desc || "Description not available.";
 
-      document.getElementById('careerSection').style.display = 'block';
+          const examCollege = document.createElement("div");
+          examCollege.className = "exam-college";
+          examCollege.innerHTML = `<strong>Entrance Exams:</strong> ${careerData[career]?.exams.join(", ") || "N/A"}<br/><strong>Top Colleges:</strong> ${careerData[career]?.colleges.join(", ") || "N/A"}`;
+
+          li.appendChild(title);
+          li.appendChild(desc);
+          li.appendChild(examCollege);
+          careerList.appendChild(li);
+        });
+
+      document.getElementById("careerSection").style.display = "block";
     });
   </script>
-
 </body>
-</html>
+      </html>
